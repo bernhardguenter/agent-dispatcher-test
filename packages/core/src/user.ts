@@ -2,10 +2,15 @@ export interface User {
   id: string;
   firstName: string;
   lastName: string;
-  email: string;
+  emailAddress: string;
 }
 
-/** The name shown in the UI, e.g. "Ada Lovelace". */
-export function formatUser(user: User): string {
-  return `${user.firstName} ${user.lastName}`;
+export interface DisplayNameOptions {
+  withEmail: boolean;
+}
+
+/** The name shown in the UI, e.g. "Ada Lovelace" or "Ada Lovelace <ada@example.com>". */
+export function formatDisplayName(user: User, options: DisplayNameOptions): string {
+  const name = `${user.firstName} ${user.lastName}`;
+  return options.withEmail ? `${name} <${user.emailAddress}>` : name;
 }
